@@ -132,11 +132,11 @@ export default function App() {
 
           <div className="flex flex-col md:flex-row justify-center items-center gap-12 md:gap-24 mb-24">
             <div className="w-[250px] h-[250px] md:w-[320px] md:h-[320px] rounded-full overflow-hidden shadow-md">
-              <img src="/image_ed1b8c.jpg" alt="Dimitri" className="w-full h-full object-cover object-top" />
+              <img src="/image_perfil_eu.jpg" alt="Dimitri" className="w-full h-full object-cover object-top" />
             </div>
             
             <div className="w-[250px] h-[250px] md:w-[320px] md:h-[320px] rounded-full overflow-hidden shadow-md">
-              <img src="/image_ed180b.png" alt="Gabrielly" className="w-full h-full object-cover object-top" />
+              <img src="/image_perfil_mozao.jpg" alt="Gabrielly" className="w-full h-full object-cover object-top" />
             </div>
           </div>
 
