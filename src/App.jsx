@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { Calendar, Clock, MapPin, Heart, Gamepad2, Plane, Gift } from 'lucide-react';
 import { giftsData } from './giftsData'; 
 import { guestsList } from './guestsList';
 
@@ -280,127 +281,249 @@ export default function App() {
         </div>
       </section>
 
-      {/* 2. CERIMÔNIA E RECEPÇÃO (ZIGUE-ZAGUE) */}
-      <section id="eventos" className="py-16 bg-white overflow-hidden">
-        <div className="max-w-6xl mx-auto px-6 flex flex-col gap-20">
-          
-          {/* Bloco 1: Cerimônia */}
-          <FadeInSection>
+      {/* 2. CERIMÔNIA E RECEPÇÃO */}
+      <section id="eventos" className="w-full overflow-hidden">
+        
+        {/* Bloco 1: Cerimônia */}
+        <div className="bg-white py-16 md:py-24 px-6 relative">
+          <FadeInSection className="max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row items-center gap-12 md:gap-20">
-              <div className="w-full md:w-1/2">
-                <div className="aspect-[4/3] overflow-hidden rounded-sm shadow-sm">
+              
+              {/* Imagem Cerimônia */}
+              <div className="w-full md:w-1/2 relative px-4">
+                <div className="aspect-[4/3] md:aspect-[16/11] overflow-hidden rounded-t-[200px] md:rounded-t-[300px] rounded-b-lg border border-gray-100 shadow-md relative z-10">
                   <img src="/image_igreja.webp" alt="Santuário Dom Bosco" className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000" />
                 </div>
               </div>
-              <div className="w-full md:w-1/2 text-center md:text-left">
-                <h2 className="font-['Corinthia'] text-6xl md:text-7xl text-[#6E8CB9] mb-6">Cerimônia</h2>
-                <div className="font-['Quicksand'] text-gray-600 mb-8 space-y-2 text-lg">
-                  <p className="font-bold">05 de Setembro de 2026</p>
-                  <p>Às 14:30h</p>
-                  <p>Santuário Dom Bosco - W3 Sul, Brasília</p>
+
+              {/* Textos Cerimônia */}
+              <div className="w-full md:w-1/2 flex flex-col items-center text-center relative">
+                {/* Marca d'água */}
+                <div className="absolute top-0 opacity-[0.03] pointer-events-none select-none font-['Corinthia'] text-[200px] md:text-[250px] text-[#6E8CB9] leading-none -mt-10 md:-mt-16">
+                  DG
                 </div>
-                <p className="font-['Quicksand'] text-gray-500 leading-relaxed mb-8">
-                  Gostaríamos muito de contar com a presença de todos vocês no momento em que nossa união será abençoada diante de Deus! A cerimônia será rápida e tentaremos ser extremamente pontuais.
+                
+                <h2 className="font-['Corinthia'] text-7xl md:text-[90px] text-[#6E8CB9] mb-2 relative z-10">
+                  Cerimônia
+                </h2>
+                
+                <div className="flex items-center justify-center gap-4 mb-10 w-full text-[#6E8CB9]/40">
+                   <div className="h-[1px] w-8 bg-[#6E8CB9]/30"></div>
+                   <Heart className="w-4 h-4" />
+                   <div className="h-[1px] w-8 bg-[#6E8CB9]/30"></div>
+                </div>
+
+                <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-12 w-full mb-10 font-['Quicksand'] relative z-10">
+                  <div className="flex flex-col items-center">
+                    <Calendar className="w-7 h-7 text-[#6E8CB9] mb-3 stroke-[1.5]" />
+                    <p className="font-bold text-gray-700 text-sm md:text-base">05 de Setembro</p>
+                    <p className="text-gray-500 text-sm">de 2026</p>
+                  </div>
+                  
+                  <div className="hidden md:block w-[1px] h-12 bg-gray-300"></div>
+                  
+                  <div className="flex flex-col items-center">
+                    <Clock className="w-7 h-7 text-[#6E8CB9] mb-3 stroke-[1.5]" />
+                    <p className="font-bold text-gray-700 text-sm md:text-base">14h30</p>
+                  </div>
+                  
+                  <div className="hidden md:block w-[1px] h-12 bg-gray-300"></div>
+                  
+                  <div className="flex flex-col items-center">
+                    <MapPin className="w-7 h-7 text-[#6E8CB9] mb-3 stroke-[1.5]" />
+                    <p className="font-bold text-gray-700 text-sm md:text-base">Santuário Dom Bosco</p>
+                    <p className="text-gray-500 text-sm">Brasília - DF</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-center gap-4 mb-6 w-full text-[#6E8CB9]/40">
+                   <div className="h-[1px] w-8 bg-[#6E8CB9]/30"></div>
+                   <span className="text-lg">🌿</span>
+                   <div className="h-[1px] w-8 bg-[#6E8CB9]/30"></div>
+                </div>
+
+                <p className="font-['Quicksand'] text-gray-500 italic text-lg md:text-xl leading-relaxed mb-10 max-w-md relative z-10">
+                  "Foi diante de Deus que escolhemos começar nossa família."
                 </p>
-                <a href="https://maps.google.com/?q=Santu%C3%A1rio+Dom+Bosco+Bras%C3%ADlia" target="_blank" rel="noreferrer" className="inline-block border-b border-[#6E8CB9] text-[#6E8CB9] font-['Questrial'] uppercase tracking-widest text-xs pb-1 hover:text-gray-900 hover:border-gray-900 transition-colors">
-                  Ver localização no mapa
+
+                <a href="https://maps.google.com/?q=Santu%C3%A1rio+Dom+Bosco+Bras%C3%ADlia" target="_blank" rel="noreferrer" 
+                   className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-[#6E8CB9] text-[#6E8CB9] font-['Questrial'] uppercase tracking-widest text-xs hover:bg-[#6E8CB9] hover:text-white transition-colors relative z-10">
+                  <MapPin className="w-4 h-4" />
+                  Como Chegar
                 </a>
               </div>
             </div>
           </FadeInSection>
+        </div>
 
-          {/* Bloco 2: Recepção */}
-          <FadeInSection>
+        {/* Bloco 2: Recepção */}
+        <div className="bg-[#f2f6fa] py-16 md:py-24 px-6 relative border-t border-white/50">
+          <FadeInSection className="max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row-reverse items-center gap-12 md:gap-20">
-              <div className="w-full md:w-1/2">
-                <div className="aspect-[4/3] overflow-hidden rounded-sm shadow-sm">
+              
+              {/* Imagem Recepção */}
+              <div className="w-full md:w-1/2 relative px-4">
+                <div className="aspect-[4/3] md:aspect-[16/11] overflow-hidden rounded-t-[200px] md:rounded-t-[300px] rounded-b-lg border border-gray-100 shadow-md relative z-10">
                   <img src="/recanto_image.png" alt="Recanto dos Buritis" className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000" />
                 </div>
               </div>
-              <div className="w-full md:w-1/2 text-center md:text-right">
-                <h2 className="font-['Corinthia'] text-6xl md:text-7xl text-[#6E8CB9] mb-6">Recepção</h2>
-                <div className="font-['Quicksand'] text-gray-600 mb-8 space-y-2 text-lg">
-                  <p className="font-bold">Logo após a cerimônia</p>
-                  <p>A partir das 16:00h</p>
-                  <p>Recanto dos Buritis - Lago Sul, Brasília</p>
+
+              {/* Textos Recepção */}
+              <div className="w-full md:w-1/2 flex flex-col items-center text-center relative">
+                 {/* Marca d'água */}
+                 <div className="absolute top-0 opacity-[0.03] pointer-events-none select-none font-['Corinthia'] text-[200px] md:text-[250px] text-[#6E8CB9] leading-none -mt-10 md:-mt-16">
+                  DG
                 </div>
-                <p className="font-['Quicksand'] text-gray-500 leading-relaxed mb-8">
-                  Convidamos vocês para celebrarmos juntos em uma recepção no mesmo dia. Preparamos uma festa linda, com muita música e alegria. Não vai perder, né?
+                
+                <h2 className="font-['Corinthia'] text-7xl md:text-[90px] text-[#6E8CB9] mb-2 relative z-10">
+                  Recepção
+                </h2>
+                
+                <div className="flex items-center justify-center gap-4 mb-10 w-full text-[#6E8CB9]/40">
+                   <div className="h-[1px] w-8 bg-[#6E8CB9]/30"></div>
+                   <Heart className="w-4 h-4" />
+                   <div className="h-[1px] w-8 bg-[#6E8CB9]/30"></div>
+                </div>
+
+                <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-12 w-full mb-10 font-['Quicksand'] relative z-10">
+                  <div className="flex flex-col items-center">
+                    <Calendar className="w-7 h-7 text-[#6E8CB9] mb-3 stroke-[1.5]" />
+                    <p className="font-bold text-gray-700 text-sm md:text-base">05 de Setembro</p>
+                    <p className="text-gray-500 text-sm">de 2026</p>
+                  </div>
+                  
+                  <div className="hidden md:block w-[1px] h-12 bg-gray-300"></div>
+                  
+                  <div className="flex flex-col items-center">
+                    <Clock className="w-7 h-7 text-[#6E8CB9] mb-3 stroke-[1.5]" />
+                    <p className="font-bold text-gray-700 text-sm md:text-base">16h00</p>
+                    <p className="text-gray-500 text-sm">a partir das</p>
+                  </div>
+                  
+                  <div className="hidden md:block w-[1px] h-12 bg-gray-300"></div>
+                  
+                  <div className="flex flex-col items-center">
+                    <MapPin className="w-7 h-7 text-[#6E8CB9] mb-3 stroke-[1.5]" />
+                    <p className="font-bold text-gray-700 text-sm md:text-base">Recanto dos Buritis</p>
+                    <p className="text-gray-500 text-sm">Lago Sul, Brasília - DF</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-center gap-4 mb-6 w-full text-[#6E8CB9]/40">
+                   <div className="h-[1px] w-8 bg-[#6E8CB9]/30"></div>
+                   <span className="text-lg">🌿</span>
+                   <div className="h-[1px] w-8 bg-[#6E8CB9]/30"></div>
+                </div>
+
+                <p className="font-['Quicksand'] text-gray-500 italic text-lg md:text-xl leading-relaxed mb-10 max-w-md relative z-10">
+                  Depois da cerimônia, esperamos vocês para celebrar conosco.
                 </p>
-                <a href="https://maps.google.com/?q=Recanto+dos+Buritis+Lago+Sul+Bras%C3%ADlia" target="_blank" rel="noreferrer" className="inline-block border-b border-[#6E8CB9] text-[#6E8CB9] font-['Questrial'] uppercase tracking-widest text-xs pb-1 hover:text-gray-900 hover:border-gray-900 transition-colors">
-                  Ver localização no mapa
+
+                <a href="https://maps.google.com/?q=Recanto+dos+Buritis+Lago+Sul+Bras%C3%ADlia" target="_blank" rel="noreferrer" 
+                   className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-[#6E8CB9] text-[#6E8CB9] font-['Questrial'] uppercase tracking-widest text-xs hover:bg-[#6E8CB9] hover:text-white transition-colors relative z-10">
+                  <MapPin className="w-4 h-4" />
+                  Como Chegar
                 </a>
               </div>
             </div>
           </FadeInSection>
-
         </div>
+
       </section>
 
       {/* 3. SEÇÃO RSVP (CHAMADA) */}
-      <section id="rsvp-cta" className="bg-[#6E8CB9] py-32 px-6 text-center text-white">
-        <FadeInSection>
-          <h2 className="font-['Corinthia'] text-6xl md:text-[80px] mb-6 font-normal">Confirme sua Presença</h2>
-          <p className="font-['Quicksand'] text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-12 leading-relaxed">
-            Sua confirmação é muito importante para que possamos organizar cada detalhe com carinho. Por favor, confirme até o dia 05 de Agosto de 2026.
+      <section id="rsvp-cta" className="relative bg-gradient-to-b from-[#eaf0f6] to-[#dbe5ef] pt-32 pb-40 px-6 text-center overflow-hidden">
+        {/* Marca d'água */}
+        <div className="absolute right-0 md:right-32 top-1/2 -translate-y-1/2 opacity-[0.04] pointer-events-none select-none font-['Corinthia'] text-[250px] md:text-[400px] text-[#6E8CB9] leading-none z-0">
+          DG
+        </div>
+        
+        <FadeInSection className="relative z-10">
+          <div className="flex items-center justify-center mb-6 text-[#6E8CB9]/60">
+             <Heart className="w-5 h-5 fill-current" />
+          </div>
+          
+          <h2 className="font-['Corinthia'] text-6xl md:text-[80px] text-[#6E8CB9] mb-6 font-normal">Confirme sua Presença</h2>
+          <p className="font-['Quicksand'] text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-12 leading-relaxed">
+            Sua confirmação é muito importante para que possamos organizar cada detalhe com carinho. Por favor, confirme até o dia <span className="font-bold text-[#6E8CB9]">05 de Agosto de 2026</span>.
           </p>
           <button 
             onClick={() => setIsRsvpModalOpen(true)} 
-            className="bg-white text-[#6E8CB9] font-['Questrial'] tracking-[0.2em] text-sm uppercase px-12 py-5 rounded-sm hover:bg-gray-100 transition-transform hover:-translate-y-1 shadow-xl"
+            className="inline-flex items-center gap-3 bg-[#7a96c2] text-white font-['Questrial'] tracking-[0.15em] text-sm uppercase px-10 py-4 rounded-md hover:bg-[#6E8CB9] transition-all shadow-md"
           >
+            <Heart className="w-5 h-5" />
             Confirmar Presença
           </button>
         </FadeInSection>
+
+        {/* Divisória Ondulada no rodapé da seção */}
+        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none transform rotate-180">
+            <svg className="relative block w-full h-[60px] md:h-[100px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#ffffff"></path>
+            </svg>
+        </div>
       </section>
 
       {/* 4. LISTA DE PRESENTES */}
-      <section id="presentes" className="bg-[#fcfcfc] pt-12 pb-24 px-6 text-center">
+      <section id="presentes" className="bg-white pt-12 pb-32 px-6 text-center relative">
         <FadeInSection>
-          <h2 className="font-['Corinthia'] text-6xl md:text-7xl text-[#6E8CB9] mb-2">Lista de Presentes</h2>
-          <div className="w-16 h-[1px] bg-[#6E8CB9]/30 mx-auto mb-8"></div>
+          <h2 className="font-['Corinthia'] text-6xl md:text-[80px] text-[#6E8CB9] mb-4">Lista de Presentes</h2>
+          
+          <div className="flex items-center justify-center gap-4 mb-8 w-full text-[#6E8CB9]/40">
+             <div className="h-[1px] w-12 bg-[#6E8CB9]/30"></div>
+             <Heart className="w-4 h-4" />
+             <div className="h-[1px] w-12 bg-[#6E8CB9]/30"></div>
+          </div>
 
-          <p className="font-['Quicksand'] text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-10 leading-relaxed italic">
+          <p className="font-['Quicksand'] text-lg md:text-xl text-gray-500 max-w-3xl mx-auto mb-16 leading-relaxed italic">
             "O maior presente para nós é celebrar este momento ao lado de pessoas tão especiais. Mas, para aqueles que desejarem nos presentear, preparamos uma lista com muito carinho."
           </p>
 
-          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             {/* Destaque 1 */}
-            <div className="bg-white p-10 rounded-sm shadow-[0_4px_30px_rgba(0,0,0,0.02)] border border-gray-50 flex flex-col items-center">
-              <div className="text-4xl mb-6">🎮</div>
-              <h3 className="font-['Quicksand'] text-xl font-bold text-gray-800 mb-2">Taxa de Videogame</h3>
-              <p className="text-gray-500 text-sm mb-8 flex-grow">Para o noivo jogar sem receber olhar de reprovação.</p>
+            <div className="bg-white p-10 rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] border border-[#eaf0f6] flex flex-col items-center relative overflow-hidden group hover:-translate-y-1 transition-transform">
+              <Gamepad2 className="w-12 h-12 text-[#6E8CB9] mb-6 stroke-[1.2]" />
+              <h3 className="font-['Questrial'] text-xl text-[#6E8CB9] mb-4">Taxa de Videogame</h3>
+              <p className="text-gray-500 font-['Quicksand'] text-sm mb-8 flex-grow">Para o noivo jogar sem receber olhar de reprovação.</p>
               <span className="font-['Questrial'] text-2xl text-[#6E8CB9] mb-8 block">R$ 100,00</span>
-              <button onClick={() => handleGiftClick({ title: "Taxa de Videogame", price: 100, icon: "🎮" })} className="w-full py-4 bg-gray-50 text-[#6E8CB9] font-['Questrial'] tracking-widest text-xs uppercase rounded-sm hover:bg-[#6E8CB9] hover:text-white transition-colors">
-                Presentear
+              <button onClick={() => handleGiftClick({ title: "Taxa de Videogame", price: 100, icon: "🎮" })} className="w-full flex justify-center items-center gap-2 py-3.5 bg-white border border-[#6E8CB9] text-[#6E8CB9] font-['Questrial'] tracking-widest text-xs uppercase rounded-full hover:bg-[#6E8CB9] hover:text-white transition-all">
+                <Gift className="w-4 h-4" /> Presentear
               </button>
             </div>
 
             {/* Destaque 2 */}
-            <div className="bg-white p-10 rounded-sm shadow-[0_4px_30px_rgba(0,0,0,0.02)] border border-gray-50 flex flex-col items-center">
-              <div className="text-4xl mb-6">✈️</div>
-              <h3 className="font-['Quicksand'] text-xl font-bold text-gray-800 mb-2">Cota Lua de Mel</h3>
-              <p className="text-gray-500 text-sm mb-8 flex-grow">Ajude-nos a aproveitar um passeio incrível na nossa viagem.</p>
+            <div className="bg-white p-10 rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] border border-[#eaf0f6] flex flex-col items-center relative overflow-hidden group hover:-translate-y-1 transition-transform">
+              <Plane className="w-12 h-12 text-[#6E8CB9] mb-6 stroke-[1.2]" />
+              <h3 className="font-['Questrial'] text-xl text-[#6E8CB9] mb-4">Cota Lua de Mel</h3>
+              <p className="text-gray-500 font-['Quicksand'] text-sm mb-8 flex-grow">Ajude-nos a aproveitar um passeio incrível na nossa viagem.</p>
               <span className="font-['Questrial'] text-2xl text-[#6E8CB9] mb-8 block">R$ 300,00</span>
-              <button onClick={() => handleGiftClick({ title: "Cota Lua de Mel", price: 300, icon: "✈️" })} className="w-full py-4 bg-gray-50 text-[#6E8CB9] font-['Questrial'] tracking-widest text-xs uppercase rounded-sm hover:bg-[#6E8CB9] hover:text-white transition-colors">
-                Presentear
+              <button onClick={() => handleGiftClick({ title: "Cota Lua de Mel", price: 300, icon: "✈️" })} className="w-full flex justify-center items-center gap-2 py-3.5 bg-white border border-[#6E8CB9] text-[#6E8CB9] font-['Questrial'] tracking-widest text-xs uppercase rounded-full hover:bg-[#6E8CB9] hover:text-white transition-all">
+                <Gift className="w-4 h-4" /> Presentear
               </button>
             </div>
 
             {/* Destaque 3 */}
-            <div className="bg-white p-10 rounded-sm shadow-[0_4px_30px_rgba(0,0,0,0.02)] border border-gray-50 flex flex-col items-center">
-              <div className="text-4xl mb-6">💝</div>
-              <h3 className="font-['Quicksand'] text-xl font-bold text-gray-800 mb-2">Contribuição Livre</h3>
-              <p className="text-gray-500 text-sm mb-8 flex-grow">Escolha o valor que desejar para nos ajudar a montar nossa casa.</p>
+            <div className="bg-white p-10 rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] border border-[#eaf0f6] flex flex-col items-center relative overflow-hidden group hover:-translate-y-1 transition-transform">
+              <Heart className="w-12 h-12 text-[#6E8CB9] mb-6 stroke-[1.2]" />
+              <h3 className="font-['Questrial'] text-xl text-[#6E8CB9] mb-4">Contribuição Livre</h3>
+              <p className="text-gray-500 font-['Quicksand'] text-sm mb-8 flex-grow">Escolha o valor que desejar para nos ajudar a montar nossa casa.</p>
               <span className="font-['Questrial'] text-2xl text-[#6E8CB9] mb-8 block">Qualquer Valor</span>
-              <button onClick={() => handleGiftClick({ title: "Contribuição Livre", price: "Qualquer Valor", icon: "💝" })} className="w-full py-4 bg-gray-50 text-[#6E8CB9] font-['Questrial'] tracking-widest text-xs uppercase rounded-sm hover:bg-[#6E8CB9] hover:text-white transition-colors">
-                Presentear
+              <button onClick={() => handleGiftClick({ title: "Contribuição Livre", price: "Qualquer Valor", icon: "💝" })} className="w-full flex justify-center items-center gap-2 py-3.5 bg-white border border-[#6E8CB9] text-[#6E8CB9] font-['Questrial'] tracking-widest text-xs uppercase rounded-full hover:bg-[#6E8CB9] hover:text-white transition-all">
+                <Gift className="w-4 h-4" /> Presentear
               </button>
             </div>
           </div>
 
-          <button onClick={() => setIsGiftsModalOpen(true)} className="inline-flex items-center gap-2 border-b border-gray-400 text-gray-500 font-['Questrial'] uppercase tracking-widest text-xs pb-1 hover:text-[#6E8CB9] hover:border-[#6E8CB9] transition-colors">
-            Ver todas as opções na lista completa
-          </button>
+          <div className="flex flex-col items-center">
+            <button onClick={() => setIsGiftsModalOpen(true)} className="text-[#6E8CB9] font-['Questrial'] uppercase tracking-[0.15em] text-sm hover:text-gray-900 transition-colors">
+              VER TODAS AS OPÇÕES NA LISTA COMPLETA
+            </button>
+            <div className="mt-4 flex items-center justify-center gap-2 text-[#6E8CB9]/30">
+               <div className="h-[1px] w-16 bg-[#6E8CB9]/30"></div>
+               <Heart className="w-3 h-3" />
+               <div className="h-[1px] w-16 bg-[#6E8CB9]/30"></div>
+            </div>
+          </div>
         </FadeInSection>
       </section>
 
