@@ -257,7 +257,7 @@ export default function App() {
       <section id="home" className="flex flex-col md:flex-row min-h-screen bg-white">
         {/* Lado Esquerdo - Foto */}
         <div className="w-full md:w-1/2 h-[60vh] md:h-screen bg-gray-100">
-          <img src="/image_casal_1.jpg" alt="Dimitri e Gabrielly" className="w-full h-full object-cover object-center" />
+          <img src="/image_casal_2.jpg" alt="Dimitri e Gabrielly" className="w-full h-full object-cover object-center" />
         </div>
         
         {/* Lado Direito - Textos */}
@@ -289,7 +289,7 @@ export default function App() {
             <div className="flex flex-col md:flex-row items-center gap-12 md:gap-20">
               <div className="w-full md:w-1/2">
                 <div className="aspect-[4/3] overflow-hidden rounded-sm shadow-sm">
-                  <img src="/image_igreja.jpg" alt="Santuário Dom Bosco" className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000" />
+                  <img src="/image_igreja.webp" alt="Santuário Dom Bosco" className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000" />
                 </div>
               </div>
               <div className="w-full md:w-1/2 text-center md:text-left">
@@ -314,7 +314,7 @@ export default function App() {
             <div className="flex flex-col md:flex-row-reverse items-center gap-12 md:gap-20">
               <div className="w-full md:w-1/2">
                 <div className="aspect-[4/3] overflow-hidden rounded-sm shadow-sm">
-                  <img src="/image_festa.jpg" alt="Recanto dos Buritis" className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000" />
+                  <img src="/recanto_image.png" alt="Recanto dos Buritis" className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000" />
                 </div>
               </div>
               <div className="w-full md:w-1/2 text-center md:text-right">
@@ -406,7 +406,7 @@ export default function App() {
 
       {/* FOOTER */}
       <footer className="bg-white py-12 text-center border-t border-gray-100">
-        <h3 className="font-['Corinthia'] text-4xl text-[#6E8CB9] mb-4">D & G</h3>
+        <img src="/brasao.png" alt="Brasão D & G" className="w-16 h-16 object-contain mx-auto mb-4 opacity-80" />
         <p className="font-['Quicksand'] text-gray-400 text-sm">Feito com muito amor para o nosso grande dia. <br />© 2026</p>
       </footer>
 
