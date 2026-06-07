@@ -39,6 +39,10 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('meme'); 
   const [isRsvpModalOpen, setIsRsvpModalOpen] = useState(false);
 
+  // Estado do menu
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   // Estados do Modal de Pagamento
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [selectedGift, setSelectedGift] = useState(null);
@@ -63,6 +67,13 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem('wedding_rsvp_db', JSON.stringify(localDB));
   }, [localDB]);
+
+  // Detecta scroll para mudar estilo do menu
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Trava o scroll do site quando qualquer modal estiver aberto
   useEffect(() => {
@@ -125,23 +136,28 @@ export default function App() {
   const handleRSVPSubmit = async (e) => {
     e.preventDefault();
     setFormStatus('loading');
+
     const confirmedIds = [selectedGuest.id, ...selectedCompanions];
-    const companionsNames = companions.filter(c => selectedCompanions.includes(c.id)).map(c => c.name).join(', ');
+    const confirmedGuests = [
+      selectedGuest,
+      ...companions.filter(c => selectedCompanions.includes(c.id))
+    ];
+    const dataHora = new Date().toLocaleString('pt-BR');
+
+    const rows = confirmedGuests.map(guest => ({
+      'Nome': guest.name,
+      'Confirmado por': selectedGuest.name,
+      'Contato': guest.id === selectedGuest.id ? contactInfo : `(via ${selectedGuest.name})`,
+      'Presenca': 'Confirmado',
+      'Data': dataHora
+    }));
 
     try {
       const SHEETDB_URL = 'https://sheetdb.io/api/v1/2kqyeqrdi7rxv'; 
       const response = await fetch(SHEETDB_URL, {
         method: 'POST',
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          data: [{
-              'Nome': selectedGuest.name,
-              'Contato': contactInfo,
-              'Presenca': 'Confirmado',
-              'Acompanhantes': companionsNames || 'Nenhum',
-              'Data': new Date().toLocaleString('pt-BR')
-            }]
-        })
+        body: JSON.stringify({ data: rows })
       });
 
       if (response.ok) {
@@ -169,14 +185,78 @@ export default function App() {
 
   const currentGifts = giftsData ? giftsData.filter(gift => gift.category === activeTab) : [];
 
+  // Link suave para âncoras
+  const scrollTo = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen bg-white font-sans scroll-smooth">
-      
+
+      {/* ========================================= */}
+      {/* MENU DE NAVEGAÇÃO FIXO                    */}
+      {/* ========================================= */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/60 backdrop-blur-md border-b border-white/40 shadow-[0_1px_12px_rgba(0,0,0,0.04)]">
+        {/* Barra principal */}
+        <div className="h-14 flex items-center justify-center relative px-6">
+
+          {/* Links — desktop: centralizados, mobile: escondidos */}
+          <ul className="hidden md:flex items-center gap-10">
+            {[
+              { label: 'Início', id: 'home' },
+              { label: 'Cerimônia', id: 'eventos' },
+              { label: 'Presença', id: 'rsvp-cta' },
+              { label: 'Presentes', id: 'presentes' },
+            ].map(({ label, id }) => (
+              <li key={id}>
+                <button
+                  onClick={() => scrollTo(id)}
+                  className="font-['Questrial'] tracking-[0.2em] text-[11px] uppercase text-gray-500 hover:text-[#6E8CB9] transition-colors duration-300"
+                >
+                  {label}
+                </button>
+              </li>
+            ))}
+          </ul>
+
+          {/* Hambúrguer — só no mobile, posicionado à direita */}
+          <button
+            onClick={() => setMobileMenuOpen(prev => !prev)}
+            className="md:hidden absolute right-6 flex flex-col gap-[5px] p-1 text-gray-500"
+            aria-label="Menu"
+          >
+            <span className={`block w-6 h-[1.5px] bg-current transition-all duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-[6.5px]' : ''}`} />
+            <span className={`block w-6 h-[1.5px] bg-current transition-all duration-300 ${mobileMenuOpen ? 'opacity-0' : ''}`} />
+            <span className={`block w-6 h-[1.5px] bg-current transition-all duration-300 ${mobileMenuOpen ? '-rotate-45 -translate-y-[6.5px]' : ''}`} />
+          </button>
+        </div>
+
+        {/* Drawer mobile */}
+        <div className={`md:hidden transition-all duration-300 overflow-hidden ${mobileMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'}`}>
+          <ul className="bg-white/90 backdrop-blur-md border-t border-gray-100 flex flex-col items-center py-4 gap-1">
+            {[
+              { label: 'Início', id: 'home' },
+              { label: 'Cerimônia', id: 'eventos' },
+              { label: 'Presença', id: 'rsvp-cta' },
+              { label: 'Presentes', id: 'presentes' },
+            ].map(({ label, id }) => (
+              <li key={id} className="w-full text-center">
+                <button
+                  onClick={() => { scrollTo(id); setMobileMenuOpen(false); }}
+                  className="w-full py-3 font-['Questrial'] tracking-[0.2em] text-[12px] uppercase text-gray-500 hover:text-[#6E8CB9] transition-colors"
+                >
+                  {label}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
+
       {/* 1. HERO SECTION (COLUNA DUPLA) */}
       <section id="home" className="flex flex-col md:flex-row min-h-screen bg-white">
         {/* Lado Esquerdo - Foto */}
         <div className="w-full md:w-1/2 h-[60vh] md:h-screen bg-gray-100">
-          {/* Se a imagem ficar cortada de forma estranha, ajuste 'object-center' ou 'object-top' */}
           <img src="/image_casal_1.jpg" alt="Dimitri e Gabrielly" className="w-full h-full object-cover object-center" />
         </div>
         
@@ -201,10 +281,10 @@ export default function App() {
       </section>
 
       {/* 2. CERIMÔNIA E RECEPÇÃO (ZIGUE-ZAGUE) */}
-      <section id="eventos" className="py-32 bg-white overflow-hidden">
-        <div className="max-w-6xl mx-auto px-6 flex flex-col gap-32">
+      <section id="eventos" className="py-16 bg-white overflow-hidden">
+        <div className="max-w-6xl mx-auto px-6 flex flex-col gap-20">
           
-          {/* Bloco 1: Cerimônia (Foto Esquerda, Texto Direita) */}
+          {/* Bloco 1: Cerimônia */}
           <FadeInSection>
             <div className="flex flex-col md:flex-row items-center gap-12 md:gap-20">
               <div className="w-full md:w-1/2">
@@ -222,14 +302,14 @@ export default function App() {
                 <p className="font-['Quicksand'] text-gray-500 leading-relaxed mb-8">
                   Gostaríamos muito de contar com a presença de todos vocês no momento em que nossa união será abençoada diante de Deus! A cerimônia será rápida e tentaremos ser extremamente pontuais.
                 </p>
-                <a href="https://maps.app.goo.gl/WkVxV4U6jR4jE6qV8" target="_blank" rel="noreferrer" className="inline-block border-b border-[#6E8CB9] text-[#6E8CB9] font-['Questrial'] uppercase tracking-widest text-xs pb-1 hover:text-gray-900 hover:border-gray-900 transition-colors">
+                <a href="https://maps.google.com/?q=Santu%C3%A1rio+Dom+Bosco+Bras%C3%ADlia" target="_blank" rel="noreferrer" className="inline-block border-b border-[#6E8CB9] text-[#6E8CB9] font-['Questrial'] uppercase tracking-widest text-xs pb-1 hover:text-gray-900 hover:border-gray-900 transition-colors">
                   Ver localização no mapa
                 </a>
               </div>
             </div>
           </FadeInSection>
 
-          {/* Bloco 2: Recepção (Texto Esquerda, Foto Direita) */}
+          {/* Bloco 2: Recepção */}
           <FadeInSection>
             <div className="flex flex-col md:flex-row-reverse items-center gap-12 md:gap-20">
               <div className="w-full md:w-1/2">
@@ -247,7 +327,7 @@ export default function App() {
                 <p className="font-['Quicksand'] text-gray-500 leading-relaxed mb-8">
                   Convidamos vocês para celebrarmos juntos em uma recepção no mesmo dia. Preparamos uma festa linda, com muita música e alegria. Não vai perder, né?
                 </p>
-                <a href="https://maps.app.goo.gl/1Q4vK9R6jR4jE6qV8" target="_blank" rel="noreferrer" className="inline-block border-b border-[#6E8CB9] text-[#6E8CB9] font-['Questrial'] uppercase tracking-widest text-xs pb-1 hover:text-gray-900 hover:border-gray-900 transition-colors">
+                <a href="https://maps.google.com/?q=Recanto+dos+Buritis+Lago+Sul+Bras%C3%ADlia" target="_blank" rel="noreferrer" className="inline-block border-b border-[#6E8CB9] text-[#6E8CB9] font-['Questrial'] uppercase tracking-widest text-xs pb-1 hover:text-gray-900 hover:border-gray-900 transition-colors">
                   Ver localização no mapa
                 </a>
               </div>
@@ -273,23 +353,17 @@ export default function App() {
         </FadeInSection>
       </section>
 
-      {/* 4. CHAMADA PARA LISTA DE PRESENTES */}
-      <section className="bg-white py-32 px-6 text-center border-b border-gray-100">
+      {/* 4. LISTA DE PRESENTES */}
+      <section id="presentes" className="bg-[#fcfcfc] pt-12 pb-24 px-6 text-center">
         <FadeInSection>
-          <div className="w-16 h-[1px] bg-[#6E8CB9]/30 mx-auto mb-10"></div>
+          <h2 className="font-['Corinthia'] text-6xl md:text-7xl text-[#6E8CB9] mb-2">Lista de Presentes</h2>
+          <div className="w-16 h-[1px] bg-[#6E8CB9]/30 mx-auto mb-8"></div>
+
           <p className="font-['Quicksand'] text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-10 leading-relaxed italic">
             "O maior presente para nós é celebrar este momento ao lado de pessoas tão especiais. Mas, para aqueles que desejarem nos presentear, preparamos uma lista com muito carinho."
           </p>
-          <a href="#presentes" className="inline-block border border-[#6E8CB9] text-[#6E8CB9] font-['Questrial'] uppercase tracking-widest text-sm px-10 py-4 rounded-sm hover:bg-[#6E8CB9] hover:text-white transition-colors">
-            Ver Lista de Presentes
-          </a>
-        </FadeInSection>
-      </section>
 
-      {/* 5. LISTA DE PRESENTES (HIGHLIGHTS NO FINAL DA PÁGINA) */}
-      <section id="presentes" className="bg-[#fcfcfc] py-24 px-6 text-center">
-        <FadeInSection>
-          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             {/* Destaque 1 */}
             <div className="bg-white p-10 rounded-sm shadow-[0_4px_30px_rgba(0,0,0,0.02)] border border-gray-50 flex flex-col items-center">
               <div className="text-4xl mb-6">🎮</div>
@@ -337,7 +411,7 @@ export default function App() {
       </footer>
 
       {/* ========================================= */}
-      {/* MODAL DO RSVP (ABRE POR CIMA DO SITE)      */}
+      {/* MODAL DO RSVP                             */}
       {/* ========================================= */}
       {isRsvpModalOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 md:p-6 transition-opacity">
