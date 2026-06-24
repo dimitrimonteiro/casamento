@@ -644,36 +644,36 @@ export default function App() {
           </div>
 
           {/* Os 3 cards de destaque */}
-          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             {/* Destaque 1 */}
             <div className="bg-white p-10 rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] border border-[#eaf0f6] flex flex-col items-center relative overflow-hidden group hover:-translate-y-1 transition-transform">
-              <Gamepad2 className="w-12 h-12 text-[#6E8CB9] mb-6 stroke-[1.2]" />
-              <h3 className="font-['Questrial'] text-xl text-[#6E8CB9] mb-4">Taxa de Videogame</h3>
-              <p className="text-gray-500 font-['Quicksand'] text-sm mb-8 flex-grow">Para o noivo jogar sem receber olhar de reprovação.</p>
+              <img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=400&h=400&fit=crop" alt="Taxa de Videogame" className="w-24 h-24 object-cover rounded-full border-4 border-[#f4f7fb] mb-6 shadow-sm" />
+              <h3 className="font-['Questrial'] text-xl text-[#6E8CB9] mb-4 text-center">Taxa de Videogame</h3>
+              <p className="text-gray-500 font-['Quicksand'] text-sm mb-8 flex-grow text-center">Para o noivo jogar sem receber olhar de reprovação.</p>
               <span className="font-['Questrial'] text-2xl text-[#6E8CB9] mb-8 block">R$ 100,00</span>
-              <button onClick={() => handleGiftClick({ title: "Taxa de Videogame", price: 100, icon: "🎮" })} className="w-full flex justify-center items-center gap-2 py-3.5 bg-white border border-[#6E8CB9] text-[#6E8CB9] font-['Questrial'] tracking-widest text-xs uppercase rounded-full hover:bg-[#6E8CB9] hover:text-white transition-all">
+              <button onClick={() => handleGiftClick({ title: "Taxa de Videogame", price: 100, image: "https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=400&h=400&fit=crop" })} className="w-full flex justify-center items-center gap-2 py-3.5 bg-white border border-[#6E8CB9] text-[#6E8CB9] font-['Questrial'] tracking-widest text-xs uppercase rounded-full hover:bg-[#6E8CB9] hover:text-white transition-all">
                 <Gift className="w-4 h-4" /> Presentear
               </button>
             </div>
 
             {/* Destaque 2 */}
             <div className="bg-white p-10 rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] border border-[#eaf0f6] flex flex-col items-center relative overflow-hidden group hover:-translate-y-1 transition-transform">
-              <Plane className="w-12 h-12 text-[#6E8CB9] mb-6 stroke-[1.2]" />
-              <h3 className="font-['Questrial'] text-xl text-[#6E8CB9] mb-4">Cota Lua de Mel</h3>
-              <p className="text-gray-500 font-['Quicksand'] text-sm mb-8 flex-grow">Ajude-nos a aproveitar um passeio incrível na nossa viagem.</p>
+              <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&h=400&fit=crop" alt="Cota Lua de Mel" className="w-24 h-24 object-cover rounded-full border-4 border-[#f4f7fb] mb-6 shadow-sm" />
+              <h3 className="font-['Questrial'] text-xl text-[#6E8CB9] mb-4 text-center">Cota Lua de Mel</h3>
+              <p className="text-gray-500 font-['Quicksand'] text-sm mb-8 flex-grow text-center">Ajude-nos a aproveitar um passeio incrível na nossa viagem.</p>
               <span className="font-['Questrial'] text-2xl text-[#6E8CB9] mb-8 block">R$ 300,00</span>
-              <button onClick={() => handleGiftClick({ title: "Cota Lua de Mel", price: 300, icon: "✈️" })} className="w-full flex justify-center items-center gap-2 py-3.5 bg-white border border-[#6E8CB9] text-[#6E8CB9] font-['Questrial'] tracking-widest text-xs uppercase rounded-full hover:bg-[#6E8CB9] hover:text-white transition-all">
+              <button onClick={() => handleGiftClick({ title: "Cota Lua de Mel", price: 300, image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&h=400&fit=crop" })} className="w-full flex justify-center items-center gap-2 py-3.5 bg-white border border-[#6E8CB9] text-[#6E8CB9] font-['Questrial'] tracking-widest text-xs uppercase rounded-full hover:bg-[#6E8CB9] hover:text-white transition-all">
                 <Gift className="w-4 h-4" /> Presentear
               </button>
             </div>
 
             {/* Destaque 3 */}
             <div className="bg-white p-10 rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] border border-[#eaf0f6] flex flex-col items-center relative overflow-hidden group hover:-translate-y-1 transition-transform">
-              <Heart className="w-12 h-12 text-[#6E8CB9] mb-6 stroke-[1.2]" />
-              <h3 className="font-['Questrial'] text-xl text-[#6E8CB9] mb-4">Contribuição Livre</h3>
-              <p className="text-gray-500 font-['Quicksand'] text-sm mb-8 flex-grow">Escolha o valor que desejar para nos ajudar a montar nossa casa.</p>
+              <img src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=400&h=400&fit=crop" alt="Contribuição Livre" className="w-24 h-24 object-cover rounded-full border-4 border-[#f4f7fb] mb-6 shadow-sm" />
+              <h3 className="font-['Questrial'] text-xl text-[#6E8CB9] mb-4 text-center">Contribuição Livre</h3>
+              <p className="text-gray-500 font-['Quicksand'] text-sm mb-8 flex-grow text-center">Escolha o valor que desejar para nos ajudar a montar nossa casa.</p>
               <span className="font-['Questrial'] text-2xl text-[#6E8CB9] mb-8 block">Qualquer Valor</span>
-              <button onClick={() => handleGiftClick({ title: "Contribuição Livre", price: "Qualquer Valor", icon: "💝" })} className="w-full flex justify-center items-center gap-2 py-3.5 bg-white border border-[#6E8CB9] text-[#6E8CB9] font-['Questrial'] tracking-widest text-xs uppercase rounded-full hover:bg-[#6E8CB9] hover:text-white transition-all">
+              <button onClick={() => handleGiftClick({ title: "Contribuição Livre", price: "Qualquer Valor", image: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=400&h=400&fit=crop" })} className="w-full flex justify-center items-center gap-2 py-3.5 bg-white border border-[#6E8CB9] text-[#6E8CB9] font-['Questrial'] tracking-widest text-xs uppercase rounded-full hover:bg-[#6E8CB9] hover:text-white transition-all">
                 <Gift className="w-4 h-4" /> Presentear
               </button>
             </div>
@@ -739,7 +739,7 @@ export default function App() {
                 {currentGifts.map((gift) => (
                   <div key={gift.id} className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex flex-col hover:shadow-md transition-shadow">
                     <div className="flex items-start gap-4 mb-4">
-                      <div className="w-12 h-12 bg-[#f4f7fa] rounded-full flex items-center justify-center text-2xl shrink-0">{gift.icon}</div>
+                      <img src={gift.image} alt={gift.title} className="w-16 h-16 rounded-xl object-cover shrink-0 shadow-sm border border-gray-100" />
                       <div className="flex-1">
                         <h4 className="font-['Quicksand'] font-bold text-gray-800 text-[15px] leading-tight mb-1">{gift.title}</h4>
                         <span className="font-['Questrial'] text-lg text-[#6E8CB9] block">R$ {gift.price},00</span>
@@ -761,7 +761,9 @@ export default function App() {
         <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 transition-opacity">
           <div className="bg-white rounded-xl w-full max-w-md p-6 md:p-8 shadow-2xl relative text-center">
             <button onClick={closePaymentModal} className="absolute top-4 right-4 w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-200 text-lg">×</button>
-            <div className="text-4xl mb-4">{selectedGift.icon}</div>
+            <div className="flex justify-center mb-6">
+  <img src={selectedGift.image} alt={selectedGift.title} className="w-28 h-28 object-cover rounded-full shadow-md border-4 border-[#f4f7fa]" />
+</div>
             <h3 className="font-['Quicksand'] font-bold text-xl text-gray-800 mb-1">{selectedGift.title}</h3>
             <p className="font-['Questrial'] text-[#6E8CB9] text-lg mb-8">{typeof selectedGift.price === 'number' ? `R$ ${selectedGift.price},00` : selectedGift.price}</p>
 
