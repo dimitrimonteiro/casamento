@@ -413,6 +413,7 @@ export default function App() {
               { label: 'Cerimônia & Recepção', id: 'eventos' },
               { label: 'Presença', id: 'rsvp-cta' },
               { label: 'Presentes', id: 'presentes' },
+              { label: 'Orientações', id: 'orientacoes' },
             ].map(({ label, id }) => (
               <li key={id}>
                 <button
@@ -441,6 +442,7 @@ export default function App() {
               { label: 'Cerimônia & Recepção', id: 'eventos' },
               { label: 'Presença', id: 'rsvp-cta' },
               { label: 'Presentes', id: 'presentes' },
+              { label: 'Orientações', id: 'orientacoes' },
             ].map(({ label, id }) => (
               <li key={id} className="w-full text-center">
                 <button
@@ -691,6 +693,202 @@ export default function App() {
             </button>
             <div className="hidden md:block h-[1px] flex-1 max-w-[80px] bg-[#6E8CB9]/20"></div>
           </div>
+        </FadeInSection>
+      </section>
+
+      {/* ========================================= */}
+      {/* 5. ORIENTAÇÕES IMPORTANTES                 */}
+      {/* ========================================= */}
+      <section id="orientacoes" className="bg-[#f2f6fa] pt-10 pb-20 md:pb-24 px-6 relative overflow-hidden">
+        {/* Marca d'água DG no canto esquerdo, igual à referência */}
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-8 opacity-[0.04] pointer-events-none select-none font-['Corinthia'] text-[280px] text-[#6E8CB9] leading-none">DG</div>
+
+        <FadeInSection className="max-w-6xl mx-auto relative z-10">
+
+          {/* ── Cabeçalho ── */}
+          <div className="text-center mb-10">
+            <h2 className="font-['Corinthia'] text-6xl md:text-[72px] text-[#6E8CB9] leading-tight mb-1">
+              Orientações Importantes
+            </h2>
+            <div className="flex items-center justify-center gap-4 mb-6 text-[#6E8CB9]/50">
+              <div className="h-[1px] w-10 bg-[#6E8CB9]/40"></div>
+              <Heart className="w-3.5 h-3.5" />
+              <div className="h-[1px] w-10 bg-[#6E8CB9]/40"></div>
+            </div>
+            <p className="font-['Quicksand'] text-gray-500 text-lg md:text-xl max-w-lg mx-auto leading-relaxed italic">
+              Para que todos aproveitem cada momento com ainda mais conforto,<br />
+              preparamos algumas informações importantes para o nosso grande dia.
+            </p>
+          </div>
+
+          {/* ── Três colunas ── */}
+          <div className="flex flex-col md:flex-row items-start gap-0">
+
+            {/* ── COLUNA 1: Dress Code ── */}
+            <div className="flex-1 flex flex-col items-center text-center px-6 md:px-10 pb-12 md:pb-0">
+              {/* Foto grande com canto arredondado */}
+              <div className="w-full mb-0 overflow-hidden rounded-2xl relative">
+                <img
+                  src="/esporte-fino2.jpg"
+                  alt="Dress Code - Esporte Fino"
+                  className="w-full h-52 md:h-56 object-cover object-top"
+                />
+              </div>
+
+              {/* Ícone circular sobreposto na borda inferior da foto */}
+              <div className="w-16 h-16 rounded-full bg-white border-4 border-[#f2f6fa] shadow-sm flex items-center justify-center -mt-8 mb-5 z-10 relative">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 text-[#6E8CB9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/>
+                </svg>
+              </div>
+
+              <h3 className="font-['Corinthia'] text-4xl md:text-5xl text-[#6E8CB9] mb-2">Dress Code</h3>
+              <div className="flex items-center justify-center gap-3 mb-3 text-[#6E8CB9]/40">
+                <div className="h-[1px] w-6 bg-[#6E8CB9]/40"></div>
+                <Heart className="w-2.5 h-2.5" />
+                <div className="h-[1px] w-6 bg-[#6E8CB9]/40"></div>
+              </div>
+              <p className="font-['Questrial'] tracking-[0.2em] text-gray-700 text-xs uppercase font-semibold mb-4">
+                ESPORTE FINO
+              </p>
+              <p className="font-['Quicksand'] text-gray-500 text-sm leading-relaxed max-w-[240px] mb-5">
+                Sugerimos traje esporte fino para que todos se sintam confortáveis e elegantes para celebrar conosco.
+              </p>
+              {/* Ícones de roupas, como na referência */}
+              <div className="flex items-end justify-center gap-4 mt-2 text-[#6E8CB9]/70">
+                {/* Vestido */}
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-9 h-9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 2h6l1 4-4 2-4-2z"/><path d="M6 6L3 20h18L18 6"/>
+                </svg>
+                {/* Vestido longo */}
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-9 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 2h6l2 5-5 2-5-2z"/><path d="M7 7L4 22h16L17 7"/>
+                </svg>
+                {/* Blazer/terno */}
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-9 h-9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M8 2L4 6v14h16V6l-4-4"/><path d="M8 2l4 5 4-5"/><path d="M12 7v13"/>
+                </svg>
+              </div>
+              <p className="font-['Quicksand'] text-[#6E8CB9] text-xs mt-3 italic">
+                Evite jeans, tênis, chinelos e roupas curtas.
+              </p>
+            </div>
+
+            {/* Divisor vertical fino */}
+            <div className="hidden md:block w-[1px] self-stretch bg-[#c5b9ae]/40 mx-0 my-4"></div>
+            {/* Divisor horizontal mobile */}
+            <div className="md:hidden w-full h-[1px] bg-[#c5b9ae]/40 my-2"></div>
+
+            {/* ── COLUNA 2: Cor a Evitar ── */}
+            <div className="flex-1 flex flex-col items-center text-center px-6 md:px-10 pb-12 md:pb-0">
+              {/* Foto */}
+              <div className="w-full overflow-hidden rounded-2xl relative">
+                <img
+                  src="/nao-pode2.png"
+                  alt="Tons Claros e Branco"
+                  className="w-full h-52 md:h-56 object-cover"
+                />
+              </div>
+
+              {/* Ícone circular — círculo com barra (proibido) */}
+              <div className="w-16 h-16 rounded-full bg-white border-4 border-[#f2f6fa] shadow-sm flex items-center justify-center -mt-8 mb-5 z-10 relative">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 text-[#6E8CB9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+                </svg>
+              </div>
+
+              <h3 className="font-['Corinthia'] text-4xl md:text-5xl text-[#6E8CB9] mb-2">Cor a Evitar</h3>
+              <div className="flex items-center justify-center gap-3 mb-3 text-[#6E8CB9]/40">
+                <div className="h-[1px] w-6 bg-[#6E8CB9]/40"></div>
+                <Heart className="w-2.5 h-2.5" />
+                <div className="h-[1px] w-6 bg-[#6E8CB9]/40"></div>
+              </div>
+              <p className="font-['Questrial'] tracking-[0.2em] text-gray-700 text-xs uppercase font-semibold mb-4">
+                TONS CLAROS E BRANCO
+              </p>
+              <p className="font-['Quicksand'] text-gray-500 text-sm leading-relaxed max-w-[240px] mb-6">
+                Pedimos a gentileza de evitar o uso de tons claros e branco, reservados para a noiva nesse dia tão especial.
+              </p>
+              {/* Paleta de bolinhas */}
+              <div className="flex items-center justify-center gap-2.5 mt-auto">
+                {[
+                  '#FFFFFF',
+                  '#F0EAD6',
+                  '#E8D5B7',
+                  '#F2C9C9',
+                  '#DDD0C8',
+                  '#1a1a1a',
+                ].map((color) => (
+                  <div
+                    key={color}
+                    className="w-8 h-8 rounded-full shadow-sm border border-[#00000012] flex-shrink-0"
+                    style={{ backgroundColor: color }}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Divisor vertical fino */}
+            <div className="hidden md:block w-[1px] self-stretch bg-[#c5b9ae]/40 mx-0 my-4"></div>
+            {/* Divisor horizontal mobile */}
+            <div className="md:hidden w-full h-[1px] bg-[#c5b9ae]/40 my-2"></div>
+
+            {/* ── COLUNA 3: Tons de Azul Claro ── */}
+            <div className="flex-1 flex flex-col items-center text-center px-6 md:px-10">
+              {/* Foto céu azul, igual à referência */}
+              <div className="w-full overflow-hidden rounded-2xl relative">
+                <img
+                  src="/madrinhas.jpg"
+                  alt="Tons de Azul Claro - Paleta das Madrinhas"
+                  className="w-full h-52 md:h-56 object-cover"
+                />
+              </div>
+
+              {/* Ícone circular — paleta de cores */}
+              <div className="w-16 h-16 rounded-full bg-white border-4 border-[#f2f6fa] shadow-sm flex items-center justify-center -mt-8 mb-5 z-10 relative">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 text-[#6E8CB9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <circle cx="8.5" cy="8.5" r="1.5" fill="currentColor" stroke="none"/>
+                  <circle cx="15.5" cy="8.5" r="1.5" fill="currentColor" stroke="none"/>
+                  <circle cx="8.5" cy="15.5" r="1.5" fill="currentColor" stroke="none"/>
+                  <circle cx="15.5" cy="15.5" r="1.5" fill="currentColor" stroke="none"/>
+                </svg>
+              </div>
+
+              <h3 className="font-['Corinthia'] text-4xl md:text-5xl text-[#6E8CB9] mb-2">Cor das madrinhas</h3>
+              <div className="flex items-center justify-center gap-3 mb-3 text-[#6E8CB9]/40">
+                <div className="h-[1px] w-6 bg-[#6E8CB9]/40"></div>
+                <Heart className="w-2.5 h-2.5" />
+                <div className="h-[1px] w-6 bg-[#6E8CB9]/40"></div>
+              </div>
+              <p className="font-['Questrial'] tracking-[0.2em] text-gray-700 text-xs uppercase font-semibold mb-4">
+                TONS DE AZUL CLARO
+              </p>
+              <p className="font-['Quicksand'] text-gray-500 text-sm leading-relaxed max-w-[240px] mb-6">
+                Para manter a harmonia da paleta do nosso casamento, pedimos que evitem tons de azul claro. São as cores exclusivas das madrinhas.
+              </p>
+              {/* Paleta de bolinhas azuis */}
+              <div className="flex items-center justify-center gap-2.5 mt-auto">
+                {[
+                  '#D6E8F5',
+                  '#A8CADE',
+                  '#7AAEC8',
+                  '#5B9AB8',
+                  '#3D7EA6',
+                  '#1E5F8A',
+                ].map((color) => (
+                  <div
+                    key={color}
+                    className="w-8 h-8 rounded-full shadow-sm border border-[#00000010] flex-shrink-0"
+                    style={{ backgroundColor: color }}
+                  />
+                ))}
+              </div>
+            </div>
+
+          </div>
+
         </FadeInSection>
       </section>
 
