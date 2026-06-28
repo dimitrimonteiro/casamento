@@ -729,7 +729,7 @@ export default function App() {
               {/* Foto grande com canto arredondado */}
               <div className="w-full mb-0 overflow-hidden rounded-2xl relative">
                 <img
-                  src="/esporte-fino2.jpg"
+                  src="/dresscode2.jpg"
                   alt="Dress Code - Esporte Fino"
                   className="w-full h-52 md:h-56 object-cover object-top"
                 />
@@ -755,23 +755,7 @@ export default function App() {
                 Sugerimos traje esporte fino para que todos se sintam confortáveis e elegantes para celebrar conosco.
               </p>
               {/* Ícones de roupas, como na referência */}
-              <div className="flex items-end justify-center gap-4 mt-2 text-[#6E8CB9]/70">
-                {/* Vestido */}
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-9 h-9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M9 2h6l1 4-4 2-4-2z"/><path d="M6 6L3 20h18L18 6"/>
-                </svg>
-                {/* Vestido longo */}
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-9 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M9 2h6l2 5-5 2-5-2z"/><path d="M7 7L4 22h16L17 7"/>
-                </svg>
-                {/* Blazer/terno */}
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-9 h-9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M8 2L4 6v14h16V6l-4-4"/><path d="M8 2l4 5 4-5"/><path d="M12 7v13"/>
-                </svg>
-              </div>
-              <p className="font-['Quicksand'] text-[#6E8CB9] text-xs mt-3 italic">
-                Evite jeans, tênis, chinelos e roupas curtas.
-              </p>
+  
             </div>
 
             {/* Divisor vertical fino */}
@@ -810,7 +794,7 @@ export default function App() {
               <p className="font-['Quicksand'] text-gray-500 text-sm leading-relaxed max-w-[240px] mb-6">
                 Pedimos a gentileza de evitar o uso de tons claros e branco, reservados para a noiva nesse dia tão especial.
               </p>
-              {/* Paleta de bolinhas */}
+              {/* Paleta de bolinhas 
               <div className="flex items-center justify-center gap-2.5 mt-auto">
                 {[
                   '#FFFFFF',
@@ -827,6 +811,7 @@ export default function App() {
                   />
                 ))}
               </div>
+              */}
             </div>
 
             {/* Divisor vertical fino */}
@@ -856,7 +841,7 @@ export default function App() {
                 </svg>
               </div>
 
-              <h3 className="font-['Corinthia'] text-4xl md:text-5xl text-[#6E8CB9] mb-2">Cor das madrinhas</h3>
+              <h3 className="font-['Corinthia'] text-4xl md:text-5xl text-[#6E8CB9] mb-2">Cor das Madrinhas</h3>
               <div className="flex items-center justify-center gap-3 mb-3 text-[#6E8CB9]/40">
                 <div className="h-[1px] w-6 bg-[#6E8CB9]/40"></div>
                 <Heart className="w-2.5 h-2.5" />
@@ -868,7 +853,7 @@ export default function App() {
               <p className="font-['Quicksand'] text-gray-500 text-sm leading-relaxed max-w-[240px] mb-6">
                 Para manter a harmonia da paleta do nosso casamento, pedimos que evitem tons de azul claro. São as cores exclusivas das madrinhas.
               </p>
-              {/* Paleta de bolinhas azuis */}
+              {/* Paleta de bolinhas azuis 
               <div className="flex items-center justify-center gap-2.5 mt-auto">
                 {[
                   '#D6E8F5',
@@ -885,6 +870,7 @@ export default function App() {
                   />
                 ))}
               </div>
+              */}
             </div>
 
           </div>
