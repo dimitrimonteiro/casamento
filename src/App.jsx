@@ -792,7 +792,7 @@ export default function App() {
                 TONS CLAROS E BRANCO
               </p>
               <p className="font-['Quicksand'] text-gray-500 text-sm leading-relaxed max-w-[240px] mb-6">
-                Pedimos a gentileza de evitar o uso de tons claros e branco, reservados para a noiva nesse dia tão especial.
+                Pedimos a gentileza de evitar o uso de tons muito claros e branco, reservados para a noiva nesse dia tão especial.
               </p>
               {/* Paleta de bolinhas 
               <div className="flex items-center justify-center gap-2.5 mt-auto">
