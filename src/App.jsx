@@ -631,16 +631,16 @@ export default function App() {
             "O maior presente para nós é celebrar este momento ao lado de pessoas tão especiais. Mas, para aqueles que desejarem nos presentear, preparamos uma lista com muito carinho."
           </p>
 
-          {/* ─── NOVO: Separador "Presentes em Destaque" ─── */}
-          <div className="flex items-center justify-center gap-5 mb-12">
-            <div className="h-[1px] flex-1 max-w-[80px] bg-[#6E8CB9]/20"></div>
-            <div className="flex items-center gap-2 px-5 py-2 rounded-full border border-[#6E8CB9]/25 bg-[#f4f7fb]">
-              <Gift className="w-4 h-4 text-[#6E8CB9]" />
-              <span className="font-['Questrial'] tracking-[0.18em] text-[11px] uppercase text-[#6E8CB9]">
-                Presentes em Destaque
-              </span>
+         {/* ─── NOVO: Separador "Presentes em Destaque" ─── */}
+          <div className="flex flex-col items-center mb-12">
+            <span className="text-[#6E8CB9] font-['Questrial'] uppercase tracking-[0.15em] text-sm">
+              PRESENTES EM DESTAQUE
+            </span>
+            <div className="mt-4 flex items-center justify-center gap-2 text-[#6E8CB9]/30">
+              <div className="h-[1px] w-16 bg-[#6E8CB9]/30"></div>
+              <Heart className="w-3 h-3" />
+              <div className="h-[1px] w-16 bg-[#6E8CB9]/30"></div>
             </div>
-            <div className="h-[1px] flex-1 max-w-[80px] bg-[#6E8CB9]/20"></div>
           </div>
 
           {/* Os 3 cards de destaque */}
@@ -678,16 +678,18 @@ export default function App() {
               </button>
             </div>
           </div>
-
-          <div className="flex flex-col items-center">
-            <button onClick={() => setIsGiftsModalOpen(true)} className="text-[#6E8CB9] font-['Questrial'] uppercase tracking-[0.15em] text-sm hover:text-gray-900 transition-colors">
-              VER TODAS AS OPÇÕES NA LISTA COMPLETA
+    <div className="flex items-center justify-center gap-4 mt-8">
+            <div className="hidden md:block h-[1px] flex-1 max-w-[80px] bg-[#6E8CB9]/20"></div>
+            <button 
+              onClick={() => setIsGiftsModalOpen(true)} 
+              className="group flex items-center justify-center gap-3 px-10 py-4 rounded-md border border-[#6E8CB9]/30 bg-[#f4f7fb] hover:bg-[#6E8CB9] transition-all duration-300 shadow-md"
+            >
+              <Gift className="w-5 h-5 text-[#6E8CB9] group-hover:text-white transition-colors duration-300" />
+              <span className="font-['Questrial'] tracking-[0.15em] text-sm uppercase text-[#6E8CB9] group-hover:text-white transition-colors duration-300 font-bold">
+                Ver a lista completa
+              </span>
             </button>
-            <div className="mt-4 flex items-center justify-center gap-2 text-[#6E8CB9]/30">
-              <div className="h-[1px] w-16 bg-[#6E8CB9]/30"></div>
-              <Heart className="w-3 h-3" />
-              <div className="h-[1px] w-16 bg-[#6E8CB9]/30"></div>
-            </div>
+            <div className="hidden md:block h-[1px] flex-1 max-w-[80px] bg-[#6E8CB9]/20"></div>
           </div>
         </FadeInSection>
       </section>
