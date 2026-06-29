@@ -21,7 +21,7 @@ export const guestsList = [
   { id: 20, name: "Larisse Martins", groupId: 5 },
   { id: 21, name: "Maria Elivânia", groupId: 6 },
   { id: 22, name: "Silvania Nascimento", groupId: 7 },
-  { id: 23, name: "Evaldo", groupId: 7 },
+  { id: 23, name: "Evaldo Campos", groupId: 7 },
   { id: 24, name: "Samuel Medeiros", groupId: 8 },
   { id: 25, name: "Caira Duarte", groupId: 8 },
   { id: 26, name: "Daniel Campos", groupId: 9 },

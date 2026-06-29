@@ -64,13 +64,21 @@ export default function App() {
   const [contactInfo, setContactInfo] = useState('');
   const [formStatus, setFormStatus] = useState('idle');
 
-  // ─── NOVO: estado para controlar a verificação na planilha ───
+  // ─── estado para controlar a verificação na planilha ───
   // 'checking' → consultando a planilha
   // 'confirmed_self' → o próprio nome já está confirmado
   // 'confirmed_other' → foi confirmado por outro membro do grupo
   // 'free' → não encontrado, pode confirmar
   const [sheetCheckStatus, setSheetCheckStatus] = useState('idle'); // idle | checking | confirmed_self | confirmed_other | free
   const [sheetConfirmerName, setSheetConfirmerName] = useState('');
+
+  // ─── Mapa de status dos acompanhantes na planilha ───
+  // { [guestId]: { status: 'free' | 'confirmed', confirmedBy: string } }
+  const [companionsSheetStatus, setCompanionsSheetStatus] = useState({});
+
+  // ─── Controle do modal de cancelamento ───
+  // null = fechado; { guestName, confirmerName, isSelf } = aberto
+  const [cancelModal, setCancelModal] = useState(null);
 
   // Detecta scroll para mudar estilo do menu
   useEffect(() => {
@@ -85,47 +93,71 @@ export default function App() {
     else document.body.style.overflow = 'unset';
   }, [isGiftsModalOpen, isPaymentModalOpen, isRsvpModalOpen]);
 
-  // ─── NOVO: ao selecionar um convidado, consulta a planilha antes de exibir o formulário ───
+  // ─── Ao selecionar um convidado, consulta a planilha para ele E todos os acompanhantes ───
   useEffect(() => {
     if (!selectedGuest) {
       setSheetCheckStatus('idle');
       setSheetConfirmerName('');
+      setCompanionsSheetStatus({});
       return;
     }
 
-    const checkSheetConfirmation = async () => {
+    const checkAll = async () => {
       setSheetCheckStatus('checking');
+      setCompanionsSheetStatus({});
+
+      const familyMembers = guestsList.filter(g => g.groupId === selectedGuest.groupId && g.id !== selectedGuest.id);
+      const allToCheck = [selectedGuest, ...familyMembers];
+
       try {
-        // Busca todas as linhas onde o campo 'Nome' é exatamente o nome do convidado selecionado
-        const res = await fetch(
-          `${SHEETDB_URL}/search?Nome=${encodeURIComponent(selectedGuest.name)}`
+        const results = await Promise.all(
+          allToCheck.map(async (guest) => {
+            try {
+              const res = await fetch(
+                `${SHEETDB_URL}/search?Nome=${encodeURIComponent(guest.name)}`
+              );
+              if (res.ok) {
+                const data = await res.json();
+                if (data && data.length > 0) {
+                  return { guest, confirmedBy: data[0]['Confirmado por'] || '' };
+                }
+              }
+            } catch { /* ignora erro individual */ }
+            return { guest, confirmedBy: null };
+          })
         );
 
-        if (res.ok) {
-          const data = await res.json();
-          if (data && data.length > 0) {
-            // Encontrou — verifica se ele mesmo confirmou ou se foi outra pessoa
-            const confirmedBy = data[0]['Confirmado por'] || '';
-            if (confirmedBy.toLowerCase() === selectedGuest.name.toLowerCase()) {
-              setSheetCheckStatus('confirmed_self');
-            } else {
-              setSheetConfirmerName(confirmedBy);
-              setSheetCheckStatus('confirmed_other');
-            }
+        // Processa o convidado principal
+        const mainResult = results[0];
+        if (mainResult.confirmedBy !== null) {
+          if (mainResult.confirmedBy.toLowerCase() === selectedGuest.name.toLowerCase()) {
+            setSheetCheckStatus('confirmed_self');
           } else {
-            setSheetCheckStatus('free');
+            setSheetConfirmerName(mainResult.confirmedBy);
+            setSheetCheckStatus('confirmed_other');
           }
         } else {
-          // Se der erro na consulta, libera o formulário para não bloquear o convidado
           setSheetCheckStatus('free');
         }
+
+        // Processa os acompanhantes
+        const companionStatuses = {};
+        results.slice(1).forEach(({ guest, confirmedBy }) => {
+          if (confirmedBy !== null) {
+            companionStatuses[guest.id] = { status: 'confirmed', confirmedBy };
+          } else {
+            companionStatuses[guest.id] = { status: 'free', confirmedBy: '' };
+          }
+        });
+        setCompanionsSheetStatus(companionStatuses);
+
       } catch (err) {
         console.error('Erro ao consultar planilha:', err);
         setSheetCheckStatus('free');
       }
     };
 
-    checkSheetConfirmation();
+    checkAll();
   }, [selectedGuest]);
 
   // --- LÓGICA DE PAGAMENTO ---
@@ -145,6 +177,27 @@ export default function App() {
     navigator.clipboard.writeText('dimitrimonteiro05@gmail.com');
     setPixCopied(true);
     setTimeout(() => setPixCopied(false), 3000);
+  };
+
+  // ─── NOVO: Máscara para o número de telefone ───
+  const handlePhoneChange = (e) => {
+    let input = e.target.value.replace(/\D/g, ''); // Remove tudo o que não é número
+    if (input.length > 11) input = input.substring(0, 11); // Limita a 11 dígitos
+
+    let formatted = input;
+    if (input.length > 2) {
+      formatted = `(${input.substring(0, 2)}) ${input.substring(2)}`;
+    }
+    if (input.length > 6) {
+      // Ajusta o hífen para números de 10 (fixo) ou 11 (celular) dígitos
+      if (input.length === 11) {
+        formatted = `(${input.substring(0, 2)}) ${input.substring(2, 7)}-${input.substring(7)}`;
+      } else {
+        formatted = `(${input.substring(0, 2)}) ${input.substring(2, 6)}-${input.substring(6)}`;
+      }
+    }
+
+    setContactInfo(formatted);
   };
 
   const handleCardPayment = async (gift) => {
@@ -221,17 +274,28 @@ export default function App() {
     );
   };
 
-  // ─── NOVO: cancelar confirmação apaga a linha da planilha pelo nome ───
-  const handleCancelConfirmation = async () => {
+  // ─── Cancelar confirmação — apaga a linha da planilha pelo nome ───
+  const handleCancelConfirmation = async (guestName, isMainGuest = true) => {
     try {
-      // SheetDB: DELETE /search?coluna=valor
       const res = await fetch(
-        `${SHEETDB_URL}/Nome/${encodeURIComponent(selectedGuest.name)}`,
+        `${SHEETDB_URL}/Nome/${encodeURIComponent(guestName)}`,
         { method: 'DELETE' }
       );
       if (res.ok) {
-        setSheetCheckStatus('free');
-        alert('Sua confirmação foi cancelada com sucesso.');
+        if (isMainGuest) {
+          setSheetCheckStatus('free');
+        } else {
+          setCompanionsSheetStatus(prev => {
+            const updated = { ...prev };
+            const companion = guestsList.find(g => g.name === guestName);
+            if (companion) {
+              updated[companion.id] = { status: 'free', confirmedBy: '' };
+              setSelectedCompanions(prev2 => prev2.filter(id => id !== companion.id));
+            }
+            return updated;
+          });
+        }
+        setCancelModal(null);
       } else {
         alert('Não foi possível cancelar. Tente novamente.');
       }
@@ -241,13 +305,26 @@ export default function App() {
     }
   };
 
-  const handleRSVPSubmit = async (e) => {
+const handleRSVPSubmit = async (e) => {
     e.preventDefault();
+
+    // ─── NOVO: Validação de tamanho do número ───
+    const phoneDigits = contactInfo.replace(/\D/g, '');
+    if (phoneDigits.length < 10) {
+      alert('Por favor, insira um número de WhatsApp válido com o DDD.');
+      return;
+    }
+
     setFormStatus('loading');
 
+    // Filtra os acompanhantes selecionados que NÃO estão ainda confirmados na planilha
     const confirmedGuests = [
       selectedGuest,
-      ...companions.filter(c => selectedCompanions.includes(c.id))
+      ...companions.filter(c => {
+        if (!selectedCompanions.includes(c.id)) return false;
+        const cStatus = companionsSheetStatus[c.id];
+        return !cStatus || cStatus.status !== 'confirmed';
+      })
     ];
     const dataHora = new Date().toLocaleString('pt-BR');
 
@@ -364,9 +441,15 @@ export default function App() {
           <div className="bg-blue-50 p-6 rounded-lg text-center border border-blue-100">
             <span className="text-3xl mb-2 block">💙</span>
             <p className="font-['Quicksand'] text-blue-800">
-              Sua presença já foi confirmada por <strong>{sheetConfirmerName}</strong>.
+              Você foi confirmado(a) por <strong>{sheetConfirmerName}</strong>.
             </p>
-            <p className="font-['Quicksand'] text-blue-600 text-sm mt-2">Nós nos vemos no grande dia!</p>
+            <p className="font-['Quicksand'] text-blue-600 text-sm mt-2 mb-5">Nós nos vemos no grande dia!</p>
+            <button
+              onClick={() => setCancelModal({ guestName: selectedGuest.name, confirmerName: sheetConfirmerName, isMainGuest: true })}
+              className="px-5 py-2 border border-red-300 text-red-400 rounded-sm font-['Quicksand'] hover:bg-red-50 transition-colors text-sm"
+            >
+              Cancelar minha presença
+            </button>
           </div>
         </div>
       );
@@ -384,7 +467,7 @@ export default function App() {
             <span className="text-3xl mb-2 block">✅</span>
             <p className="font-['Quicksand'] text-green-800 mb-4">Você já confirmou sua presença!</p>
             <button
-              onClick={handleCancelConfirmation}
+              onClick={() => setCancelModal({ guestName: selectedGuest.name, confirmerName: selectedGuest.name, isMainGuest: true })}
               className="px-6 py-2 border border-red-300 text-red-500 rounded-sm font-['Quicksand'] hover:bg-red-50 transition-colors text-sm"
             >
               Cancelar Presença
@@ -403,15 +486,16 @@ export default function App() {
         </div>
         <form onSubmit={handleRSVPSubmit}>
           <div className="mb-6">
-            <label className="block font-['Quicksand'] text-gray-700 font-bold mb-2">Seu WhatsApp</label>
-            <input
-              type="text"
-              value={contactInfo}
-              onChange={(e) => setContactInfo(e.target.value)}
-              required
-              className="w-full px-4 py-3 bg-white border border-gray-200 rounded-sm focus:outline-none focus:border-[#6E8CB9] font-['Quicksand']"
-              placeholder="Para enviarmos lembretes"
-            />
+            <label className="block font-['Quicksand'] text-gray-700 font-bold mb-2">Digite seu WhatsApp abaixo:</label>
+<input
+  type="tel"
+  value={contactInfo}
+  onChange={handlePhoneChange}
+  maxLength={15}
+  required
+  className="w-full px-4 py-3 bg-white border border-gray-200 rounded-sm focus:outline-none focus:border-[#6E8CB9] font-['Quicksand']"
+  placeholder="(XX) XXXXX-XXXX"
+/>
           </div>
 
           {companions.length > 0 && (
@@ -420,19 +504,39 @@ export default function App() {
                 Quem mais do seu convite irá com você?
               </label>
               <div className="space-y-3">
-                {companions.map(companion => (
-                  <label key={companion.id} className="flex items-center gap-3 cursor-pointer group">
-                    <input
-                      type="checkbox"
-                      checked={selectedCompanions.includes(companion.id)}
-                      onChange={() => handleCompanionToggle(companion.id)}
-                      className="w-5 h-5 text-[#6E8CB9] rounded focus:ring-[#6E8CB9] border-gray-300 cursor-pointer"
-                    />
-                    <span className="font-['Quicksand'] text-gray-600 group-hover:text-gray-900 transition-colors">
-                      {companion.name}
-                    </span>
-                  </label>
-                ))}
+                {companions.map(companion => {
+                  const cStatus = companionsSheetStatus[companion.id];
+                  const isConfirmed = cStatus && cStatus.status === 'confirmed';
+                  const confirmedBy = cStatus ? cStatus.confirmedBy : '';
+                  return (
+                    <div key={companion.id} className="flex items-center justify-between gap-3">
+                      <label className={`flex items-center gap-3 ${isConfirmed ? 'cursor-default' : 'cursor-pointer group'} flex-1`}>
+                        <input
+                          type="checkbox"
+                          checked={isConfirmed || selectedCompanions.includes(companion.id)}
+                          onChange={() => !isConfirmed && handleCompanionToggle(companion.id)}
+                          disabled={isConfirmed}
+                          className="w-5 h-5 text-[#6E8CB9] rounded focus:ring-[#6E8CB9] border-gray-300 cursor-pointer disabled:cursor-default disabled:opacity-60"
+                        />
+                        <span className={`font-['Quicksand'] transition-colors ${isConfirmed ? 'text-gray-400 line-through' : 'text-gray-600 group-hover:text-gray-900'}`}>
+                          {companion.name}
+                        </span>
+                        {isConfirmed && (
+                          <span className="text-xs text-green-600 font-['Quicksand'] ml-1">✓ confirmado(a)</span>
+                        )}
+                      </label>
+                      {isConfirmed && (
+                        <button
+                          type="button"
+                          onClick={() => setCancelModal({ guestName: companion.name, confirmerName: confirmedBy, isMainGuest: false })}
+                          className="text-xs text-red-400 hover:text-red-600 underline font-['Quicksand'] whitespace-nowrap shrink-0"
+                        >
+                          Cancelar
+                        </button>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -899,6 +1003,45 @@ export default function App() {
             </div>
             <div className="p-6 md:p-10 overflow-y-auto flex-1">
               {renderRsvpBody()}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================= */}
+      {/* MODAL DE CONFIRMAÇÃO DE CANCELAMENTO       */}
+      {/* ========================================= */}
+      {cancelModal && (
+        <div className="fixed inset-0 z-[120] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+          <div className="bg-white rounded-xl w-full max-w-sm p-6 shadow-2xl text-center">
+            <span className="text-4xl mb-3 block">⚠️</span>
+            <h4 className="font-['Quicksand'] text-lg font-bold text-gray-800 mb-2">
+              Cancelar presença?
+            </h4>
+            {cancelModal.confirmerName && cancelModal.confirmerName.toLowerCase() !== cancelModal.guestName.toLowerCase() ? (
+              <p className="font-['Quicksand'] text-gray-600 text-sm mb-6">
+                <strong>{cancelModal.guestName}</strong> foi confirmado(a) por <strong>{cancelModal.confirmerName}</strong>.<br />
+                Deseja mesmo cancelar esta presença?
+              </p>
+            ) : (
+              <p className="font-['Quicksand'] text-gray-600 text-sm mb-6">
+                Deseja cancelar a presença de <strong>{cancelModal.guestName}</strong>?<br />
+                Esta ação pode ser desfeita refazendo a confirmação.
+              </p>
+            )}
+            <div className="flex gap-3 justify-center">
+              <button
+                onClick={() => setCancelModal(null)}
+                className="px-5 py-2 border border-gray-200 text-gray-500 rounded-sm font-['Quicksand'] hover:bg-gray-50 transition-colors text-sm"
+              >
+                Voltar
+              </button>
+              <button
+                onClick={() => handleCancelConfirmation(cancelModal.guestName, cancelModal.isMainGuest)}
+                className="px-5 py-2 bg-red-500 text-white rounded-sm font-['Quicksand'] hover:bg-red-600 transition-colors text-sm"
+              >
+                Sim, cancelar
+              </button>
             </div>
           </div>
         </div>
