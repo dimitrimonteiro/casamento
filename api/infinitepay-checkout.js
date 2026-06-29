@@ -159,24 +159,23 @@ export default function App() {
     setPaymentError(null);
 
     const amountInCents = gift.price * 100;
-    const formattedValue = gift.price.toFixed(2).replace('.', ',');
-    const fallbackUrl = `https://link.infinitepay.io/dimitri_monteiro/${formattedValue}`;
 
     try {
-      // 1ª tentativa: Vercel Function (resolve CORS, funciona em produção na Vercel)
-      const response = await fetch('/api/infinitepay-checkout', {
+      // Tenta a API de Checkout da InfinitePay direto do browser
+      const response = await fetch('https://api.checkout.infinitepay.io/links', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          giftTitle: gift.title,
-          priceInCents: amountInCents,
+          handle: 'dimitri_monteiro',
+          items: [{ quantity: 1, price: amountInCents, description: gift.title }],
+          redirect_url: window.location.href,
         }),
       });
 
-      if (!response.ok) throw new Error('vercel_fn_error');
+      if (!response.ok) throw new Error('api_error');
 
       const data = await response.json();
-      const paymentUrl = data.payment_url;
+      const paymentUrl = data.payment_url || data.url || data.link;
 
       if (paymentUrl) {
         window.open(paymentUrl, '_blank');
@@ -185,8 +184,9 @@ export default function App() {
       }
       throw new Error('no_url');
     } catch {
-      // Fallback: link público InfinitePay com valor na URL
-      window.open(fallbackUrl, '_blank');
+      // Fallback: link público InfinitePay com valor já na URL
+      const formattedValue = gift.price.toFixed(2).replace('.', ',');
+      window.open(`https://link.infinitepay.io/dimitri_monteiro/${formattedValue}`, '_blank');
       closePaymentModal();
     } finally {
       setIsLoadingPayment(false);

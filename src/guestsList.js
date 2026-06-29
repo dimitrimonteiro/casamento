@@ -34,7 +34,7 @@ export const guestsList = [
   { id: 82, name: "Juan Vaz", groupId: 33 },
   { id: 83, name: "Luís Garcia", groupId: 34 },
   { id: 84, name: "Marcus Vinicius", groupId: 35 },
-  { id: 85, name: "Lucas Pereira", groupId: 36 }, { id: 86, name: "Tauany", groupId: 36 },
+  { id: 85, name: "Lucas Pereira", groupId: 36 }, { id: 86, name: "Thailanny dos Santos", groupId: 36 },
   { id: 87, name: "Alisson Leandro", groupId: 37 },
   { id: 88, name: "Lucas Cardim", groupId: 38 },
   { id: 89, name: "Gustavo Souza", groupId: 39 },
