@@ -149,7 +149,8 @@ export default function App() {
     const value = e.target.value;
     setSearchTerm(value);
     if (value.length > 2) {
-      const filtered = guestsList.filter(g => g.name.toLowerCase().includes(value.toLowerCase()));
+      const normalize = str => str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+      const filtered = guestsList.filter(g => normalize(g.name).includes(normalize(value)));
       setSuggestions(filtered);
     } else {
       setSuggestions([]);
@@ -353,7 +354,7 @@ export default function App() {
         </div>
         <form onSubmit={handleRSVPSubmit}>
           <div className="mb-6">
-            <label className="block font-['Quicksand'] text-gray-700 font-bold mb-2">Seu WhatsApp ou E-mail *</label>
+            <label className="block font-['Quicksand'] text-gray-700 font-bold mb-2">Seu WhatsApp</label>
             <input
               type="text"
               value={contactInfo}
