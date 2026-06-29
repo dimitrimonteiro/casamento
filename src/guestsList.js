@@ -117,7 +117,6 @@ export const guestsList = [
   { id: 116, name: "Mulher do Schimitd", groupId: 55 },
   { id: 117, name: "Fabiano Alves", groupId: 56 },
   { id: 118, name: "Isadora Dias", groupId: 56 },
-  { id: 119, name: "Willian Santos", groupId: 57 },
   { id: 120, name: "Carlos Daniel", groupId: 58 },
   { id: 121, name: "Aisha Araujo", groupId: 59 },
   { id: 122, name: "Anna Paula Araujo", groupId: 59 },
