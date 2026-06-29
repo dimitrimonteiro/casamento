@@ -965,7 +965,7 @@ export default function App() {
             {paymentMethod === 'pix' && (
               <div className="flex flex-col items-center animate-in fade-in zoom-in duration-300">
                 <div className="w-40 h-40 bg-white p-2 rounded-lg mb-4 flex items-center justify-center border border-gray-200 shadow-sm">
-                  <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=dimitrimonteiro05@gmail.com" alt="QR Code PIX" className="w-full h-full" />
+                  <img src="/qrcode-pix.png" alt="QR Code PIX" className="w-full h-full" />
                 </div>
                 <p className="font-['Quicksand'] text-sm text-gray-500 mb-2">Escaneie o QR Code ou copie a chave abaixo:</p>
                 <div className="w-full bg-gray-50 p-3 rounded border border-gray-200 flex justify-between items-center mb-6">
