@@ -39,7 +39,7 @@ export const guestsList = [
   { id: 88, name: "Lucas Cardim", groupId: 38 },
   { id: 89, name: "Gustavo Souza", groupId: 39 },
   { id: 90, name: "João Pedro de Queiroz", groupId: 40 },
-  { id: 91, name: "Charley Junior", groupId: 41 }, { id: 92, name: "Júlia", groupId: 41 },
+  { id: 91, name: "Charley Junior", groupId: 41 }, { id: 92, name: "Júlia Tuissi", groupId: 41 },
   { id: 93, name: "Caio Ulisses", groupId: 42 }, { id: 94, name: "Monaliza de Souza Lima", groupId: 42 },
   { id: 95, name: "Samuel Dourado", groupId: 43 }, { id: 96, name: "Sabrina da Silva", groupId: 43 },
   { id: 97, name: "Ludmilly Almeida", groupId: 44 }, { id: 98, name: "Lya Almeida", groupId: 44 },
