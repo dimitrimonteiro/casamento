@@ -125,8 +125,6 @@ export const guestsList = [
   { id: 124, name: "Gustavo Morais", groupId: 61 },
   { id: 125, name: "Maria Helaine Tomaz", groupId: 61 },
   { id: 126, name: "Gabriella Pina", groupId: 62 },
-  { id: 127, name: "Ricardo Sergio", groupId: 63 },
-  { id: 128, name: "Mulher do Ricardo", groupId: 63 },
   { id: 129, name: "Eduardo Melo", groupId: 64 },
   { id: 130, name: "Marta Giovana", groupId: 64 },
   { id: 131, name: "Vitor Carrilho", groupId: 65 },
