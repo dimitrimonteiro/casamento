@@ -614,7 +614,7 @@ const handleRSVPSubmit = async (e) => {
       {/* 1. HERO SECTION */}
       <section id="home" className="flex flex-col md:flex-row min-h-screen bg-white">
         <div className="w-full md:w-1/2 h-[60vh] md:h-screen bg-gray-100">
-          <img src="/image_casal_2.jpg" alt="Dimitri e Gabrielly" className="w-full h-full object-cover object-center" />
+          <img src="/imagem_casal_4.jpeg" alt="Dimitri e Gabrielly" className="w-full h-full object-cover object-center" />
         </div>
         <div className="w-full md:w-1/2 flex flex-col justify-center items-center text-center p-12 md:p-24 bg-[#fcfcfc]">
           <FadeInSection>
@@ -982,7 +982,7 @@ const handleRSVPSubmit = async (e) => {
 
       {/* FOOTER */}
       <footer className="bg-white py-12 text-center border-t border-gray-100">
-        <img src="/brasao.png" alt="Brasão D & G" className="w-16 h-16 object-contain mx-auto mb-4 opacity-80" />
+        <img src="/logo-nova.png" alt="Brasão D & G" className="w-16 h-16 object-contain mx-auto mb-4 opacity-80" />
         <p className="font-['Quicksand'] text-gray-400 text-sm">Feito com muito amor para o nosso grande dia. <br />© 2026</p>
       </footer>
 
