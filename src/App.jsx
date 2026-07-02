@@ -673,7 +673,7 @@ const handleRSVPSubmit = async (e) => {
                 </div>
                 <div className="flex items-center justify-center gap-4 mb-6 w-full text-[#6E8CB9]/40">
                   <div className="h-[1px] w-8 bg-[#6E8CB9]/30"></div>
-                  <span className="text-lg">🌿</span>
+                  <img src="/folhas-do-ramo.png" alt="" className="h-5 md:h-6 w-auto shrink-0" />
                   <div className="h-[1px] w-8 bg-[#6E8CB9]/30"></div>
                 </div>
                 <p className="font-['Quicksand'] text-gray-500 italic text-lg md:text-xl leading-relaxed mb-10 max-w-md relative z-10">
@@ -726,7 +726,7 @@ const handleRSVPSubmit = async (e) => {
                 </div>
                 <div className="flex items-center justify-center gap-4 mb-6 w-full text-[#6E8CB9]/40">
                   <div className="h-[1px] w-8 bg-[#6E8CB9]/30"></div>
-                  <span className="text-lg">🌿</span>
+                  <img src="/folhas-do-ramo.png" alt="" className="h-5 md:h-6 w-auto shrink-0" />
                   <div className="h-[1px] w-8 bg-[#6E8CB9]/30"></div>
                 </div>
                 <p className="font-['Quicksand'] text-gray-500 italic text-lg md:text-xl leading-relaxed mb-10 max-w-md relative z-10">
